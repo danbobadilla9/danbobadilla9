@@ -32,8 +32,8 @@
 <h1 align="center">Additional Information</h1>
 <div align="center">
 
- [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=danbobadilla9&langs_count=5&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)   
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=danbobadilla9&langs_count=5&theme=radical)](https://github.com/anuraghazra/github-readme-stats) 
  <br>
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=danbobadilla9&theme=tokyonight)
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=danbobadilla9&show_icons=true&theme=radical)
 
 </div>
