@@ -1,4 +1,4 @@
-import React, { useMemo, Dispatch } from 'react'
+import { useMemo, Dispatch } from 'react'
 import { Activity } from '../types'
 import { categories } from '../data/categories';
 import { PencilSquareIcon, XCircleIcon } from '@heroicons/react/24/outline';
