@@ -4,18 +4,32 @@
         <servlet-name>Inicio</servlet-name>
         <servlet-class>View.Inicio</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CambiarMoneda</servlet-name>
+        <servlet-class>Control.CambiarMoneda</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>View.Admin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarMoneda</servlet-name>
+        <url-pattern>/CambiarMoneda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <error-page>
         <location>/404.html</location>
     </error-page>
-    
 </web-app>

@@ -42,15 +42,15 @@
                     <div class="btn-group pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                $ Pesos Mexicanos (MXN)
+                                ${sessionScope.nom_moneda} (${sessionScope.moneda})
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Pesos Mexicanos (MXN)</a></li>
-                                <li><a href="#">Pesos Colombianos (COP)</a></li>
+                                <li><a href="CambiarMoneda?moneda=MXN">Pesos Mexicanos (MXN)</a></li>
+                                <li><a href="CambiarMoneda?moneda=COP">Pesos Colombianos (COP)</a></li>
 
-                                <li><a href="#">Dolar Estadounidenses (USD)</a></li>
-                                <li><a href="#">Dolar Canadiense (CAD)</a></li>
+                                <li><a href="CambiarMoneda?moneda=USD">Dolar (USA) (USD)</a></li>
+                                <li><a href="CambiarMoneda?moneda=PEN">Sol Peruano (PEN)</a></li>
                             </ul>
                         </div>
                     </div>

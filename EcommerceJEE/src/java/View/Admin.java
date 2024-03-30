@@ -11,13 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Dan Israel Bobadilla
  */
-public class Inicio extends HttpServlet {
+public class Admin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,13 +30,7 @@ public class Inicio extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession sesion = request.getSession();
-        if( sesion.getAttribute("moneda") == null ){
-            sesion.setAttribute("moneda", "MXN");
-            sesion.setAttribute("nom_moneda", "$ Pesos Mexicanos");
-        }
-        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
-        
+        request.getRequestDispatcher("WEB-INF/admin/index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

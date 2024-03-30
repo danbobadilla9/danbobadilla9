@@ -62,6 +62,25 @@ public class CategoriaModel {
         }
     }
     
+    public static ArrayList<Categoria> listarTodoDeCategorias(){
+        try{
+            String sql = "{ CALL sp_listarTodo() }";
+            Connection c = Conexion.conectar();
+            CallableStatement sentencia = c.prepareCall(sql);
+            ResultSet resultado = sentencia.executeQuery();
+            ArrayList<Categoria> lista = new ArrayList<>();
+            while(resultado.next()){
+                Categoria categoria = new Categoria();
+                categoria.setCodigo(resultado.getInt("codigo"));
+                categoria.setNombre(resultado.getString("nombre"));
+                lista.add(categoria);
+            }
+            return lista;
+        }catch(SQLException ex){
+            return null;
+        }
+    }
+    
     public static boolean esSuperior(int codigoSuperior){
         try{
             String sql = "{ CALL contarSubcategorias(?) }";
