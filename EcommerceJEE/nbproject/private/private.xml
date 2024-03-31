@@ -4,7 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/Documentos/Portafolio/EcommerceJEE/src/java/View/Admin.java</file>
+            <file>file:/E:/Documentos/Portafolio/EcommerceJEE/src/java/Modelos/ProductoModel.java</file>
             <file>file:/E:/Documentos/Portafolio/EcommerceJEE/src/java/Modelos/CategoriaModel.java</file>
+            <file>file:/E:/Documentos/Portafolio/EcommerceJEE/src/java/Modelos/MarcaModel.java</file>
+            <file>file:/E:/Documentos/Portafolio/EcommerceJEE/src/java/Control/ControlProducto.java</file>
+            <file>file:/E:/Documentos/Portafolio/EcommerceJEE/src/java/JabaBeans/ProductoMoneda.java</file>
             <file>file:/E:/Documentos/Portafolio/EcommerceJEE/web/WEB-INF/admin/index.jsp</file>
         </group>
     </open-files>

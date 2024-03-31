@@ -12,6 +12,10 @@
         <servlet-name>Admin</servlet-name>
         <servlet-class>View.Admin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControlProducto</servlet-name>
+        <servlet-class>Control.ControlProducto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/Home</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Admin</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlProducto</servlet-name>
+        <url-pattern>/ControlProducto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

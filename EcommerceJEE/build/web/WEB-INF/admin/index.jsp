@@ -4,6 +4,8 @@
     Author     : Dan Israel Bobadilla
 --%>
 
+<%@page import="Modelos.MarcaModel"%>
+<%@page import="JabaBeans.Marca"%>
 <%@page import="Modelos.CategoriaModel"%>
 <%@page import="JabaBeans.Categoria"%>
 <%@page import="java.util.ArrayList"%>
@@ -35,7 +37,7 @@
 
 
                         <h3>Gestionar Producto</h3>
-                        <form action="ControlProducto" method="post">
+                        <form action="ControlProducto" enctype="multipart/form-data" method="post">
                             <div class="form-one">
                                 Nombre:<br/>
                                 <input type="text" name="nombre" placeholder="Nombre producto" value="" required /><hr/>
@@ -59,13 +61,16 @@
                                 <input type="number" name="cantidad" placeholder="Cantidad" value="1" min="1" /><br/>
 
                                 Marca: <select name="marca">
-                                    <option></option>
+                                    <option>Seleccionar Categoría</option>
+                                    <% for (Marca m : MarcaModel.listarTodoDeMarca()) {%>
+                                    <option value="<%= m.getCodigo()%>" ><%= m.getNombre()%></option>
+                                    <%}%>
                                 </select>
 
                                 Categoria: <select name="categoria">
                                     <option>Seleccionar Categoría</option>
-                                    <% for (Categoria c : CategoriaModel.listarTodoDeCategorias()) { %>
-                                    <option value="<%= c.getCodigo() %>" ><%= c.getNombre() %></option>
+                                    <% for (Categoria c : CategoriaModel.listarTodoDeCategorias()) {%>
+                                    <option value="<%= c.getCodigo()%>" ><%= c.getNombre()%></option>
                                     <%}%>
                                 </select>
 
