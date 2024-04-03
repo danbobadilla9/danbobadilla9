@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="col-sm-10 clearfixt">
-
+                    ${mensaje}
 
                         <h3>Gestionar Producto</h3>
                         <form action="ControlProducto" enctype="multipart/form-data" method="post">
@@ -74,12 +74,12 @@
                                     <%}%>
                                 </select>
 
-                                Descripción: <textarea name="descripción" rows="4" cols="20" placeholder="Descripción" required>
+                                Descripción: <textarea name="descripcion" rows="4" cols="20" placeholder="Descripción" required>
                                     
                                 </textarea>
 
                                 Nuevo?:<input type="checkbox" name="nuevo" value="ON" checked="checked"/>
-                                Recomendado?:<input type="checkbox" name="recomendado" value="OFF" />
+                                Recomendado?:<input type="checkbox" name="recomendado" value="ON" />
                                 Visible?:<input type="checkbox" name="visible" value="ON" checked="checked"/>
                                 <hr/>
                                 Seleccionar imagen:<input type="file" name="imagen" value="Seleccionar una imagen" required />

@@ -7,6 +7,7 @@ package Control;
 
 import JabaBeans.Producto;
 import JabaBeans.ProductoMoneda;
+import Modelos.ProductoModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,7 +50,7 @@ public class ControlProducto extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControlProducto</title>");            
+            out.println("<title>Servlet ControlProducto</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ControlProducto at " + request.getContextPath() + "</h1>");
@@ -84,104 +85,132 @@ public class ControlProducto extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String url = subirImagen(request);
-            // Proceso de recibir la información
-            String nombre = request.getParameter("nombre");
-            float precio = Float.parseFloat(request.getParameter("precio"));
-            float precion = Float.parseFloat(request.getParameter("precionuevo"));
+        //String url = recibirDatos(request);
+        recibirDatos(request);
+        String url = request.getAttribute("imagen").toString();
+        // Proceso de recibir la información
+        String nombre = request.getAttribute("nombre").toString();
+        float precio = Float.parseFloat(request.getAttribute("precio").toString());
+        float precion = Float.parseFloat(request.getAttribute("precionuevo").toString());
 
-            float preciocop = Float.parseFloat(request.getParameter("preciocop"));
-            float precioncop = Float.parseFloat(request.getParameter("precionuevocop"));
-            
-            float preciousd = Float.parseFloat(request.getParameter("preciousd"));
-            float precionusd = Float.parseFloat(request.getParameter("precionuevousd"));
-            
-            float preciopen = Float.parseFloat(request.getParameter("preciopen"));
-            float precionpen = Float.parseFloat(request.getParameter("precionuevopen"));
-            
-            
-            int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-            
-            int marca = Integer.parseInt(request.getParameter("marca"));
-            int categoria = Integer.parseInt(request.getParameter("categoria"));
-            
-            String descripcion = request.getParameter("descripcion");
-            
-            boolean nuevo = (request.getParameter("nuevo").equalsIgnoreCase("on"))? true:false;
-            boolean recomendado = request.getParameter("recomendado").equalsIgnoreCase("on");
-            boolean visible = request.getParameter("visible").equalsIgnoreCase("on");
-            
-            String accion = request.getParameter("accion");
-            
-            Producto producto = new Producto();
-            producto.setNombre(nombre);
-            producto.setPrecio(precio);
-            producto.setPrecionuevo(precion);
-            producto.setCodigo_categoria(categoria);
-            producto.setCodigo_marca(marca);
-            producto.setDescripcion(descripcion);
-            producto.setImg(url);
-            producto.setNuevo(nuevo);
-            producto.setRecomendado(recomendado);
-            producto.setStock(cantidad);
-            producto.setVisible(visible);
-            
-            ProductoMoneda pmonedacop = new ProductoMoneda();
-            pmonedacop.setMoneda("COP");
-            pmonedacop.setPrecio(preciocop);
-            pmonedacop.setPrecionuevo(precioncop);
-            
-            ProductoMoneda pmonedausd = new ProductoMoneda();
-            pmonedausd.setMoneda("USD");
-            pmonedausd.setPrecio(preciousd);
-            pmonedausd.setPrecionuevo(precionusd);
-            
-             ProductoMoneda pmonedapen = new ProductoMoneda();
-            pmonedapen.setMoneda("PEN");
-            pmonedapen.setPrecio(preciopen);
-            pmonedapen.setPrecionuevo(precionpen);
-            
-            //response.sendRedirect("foto/"+url);
-    }
-    
-    private String subirImagen(HttpServletRequest request){
+        float preciocop = Float.parseFloat(request.getAttribute("preciocop").toString());
+        float precioncop = Float.parseFloat(request.getAttribute("precionuevocop").toString());
+
+        float preciousd = Float.parseFloat(request.getAttribute("preciousd").toString());
+        float precionusd = Float.parseFloat(request.getAttribute("precionuevousd").toString());
+
+        float preciopen = Float.parseFloat(request.getAttribute("preciopen").toString());
+        float precionpen = Float.parseFloat(request.getAttribute("precionuevopen").toString());
+
+        int cantidad = Integer.parseInt(request.getAttribute("cantidad").toString());
+        int marca = Integer.parseInt(request.getAttribute("marca").toString());
+        int categoria = Integer.parseInt(request.getAttribute("categoria").toString());
+
+        String descripcion = request.getAttribute("descripcion").toString();
+        boolean nuevo;
+        boolean recomendado;
+        boolean visible;
+        try{
+            nuevo = (request.getAttribute("nuevo").toString().equalsIgnoreCase("on")) ? true : false;
+        }catch(Exception e){
+            nuevo = false;
+        }
+        try{
+            recomendado = request.getAttribute("recomendado").toString().equalsIgnoreCase("on");
+        }catch(Exception e){
+            recomendado = false;
+        }
         
+        try{
+            visible = request.getAttribute("visible").toString().equalsIgnoreCase("on");
+        }catch(Exception e){
+            visible = false;
+        }
+        
+        
+        
+
+        String accion = request.getAttribute("accion").toString();
+
+        Producto producto = new Producto();
+        producto.setNombre(nombre);
+        producto.setPrecio(precio);
+        producto.setPrecionuevo(precion);
+        producto.setCodigo_categoria(categoria);
+        producto.setCodigo_marca(marca);
+        producto.setDescripcion(descripcion);
+        producto.setImg(url);
+        producto.setNuevo(nuevo);
+        producto.setRecomendado(recomendado);
+        producto.setStock(cantidad);
+        producto.setVisible(visible);
+
+        ProductoMoneda pmonedacop = new ProductoMoneda();
+        pmonedacop.setMoneda("COP");
+        pmonedacop.setPrecio(preciocop);
+        pmonedacop.setPrecionuevo(precioncop);
+
+        ProductoMoneda pmonedausd = new ProductoMoneda();
+        pmonedausd.setMoneda("USD");
+        pmonedausd.setPrecio(preciousd);
+        pmonedausd.setPrecionuevo(precionusd);
+
+        ProductoMoneda pmonedapen = new ProductoMoneda();
+        pmonedapen.setMoneda("PEN");
+        pmonedapen.setPrecio(preciopen);
+        pmonedapen.setPrecionuevo(precionpen);
+
+        if (accion.equalsIgnoreCase("registrar")) {
+            if (ProductoModel.registrarProducto(producto, pmonedacop, pmonedausd, pmonedapen)) {
+                request.setAttribute("mensaje", "<p style ='color:green'> Producto registrado</p>");
+            } else {
+                request.setAttribute("mensaje", "<p style ='color:red'>Producto No registrado</p>");
+            }
+        } else {
+            request.setAttribute("mensaje", "<p style ='color:red'>Accion desconocida</p>");
+        }
+        request.getRequestDispatcher("admin").forward(request, response);
+
+        //response.sendRedirect("foto/"+url);
+    }
+
+    private void recibirDatos(HttpServletRequest request) {
+
         try {
             FileItemFactory fileFactory = new DiskFileItemFactory();
             ServletFileUpload serveletUpload = new ServletFileUpload(fileFactory);
-            
+
             // Extraemos los archivos que subio, puede ser más d euno
-            String nombre ="";
+            String nombre = "";
             List items = serveletUpload.parseRequest(request);
-            for(int i = 0; i < items.size(); i++){
+            for (int i = 0; i < items.size(); i++) {
                 FileItem item = (FileItem) items.get(i);
-                if(!item.isFormField()){
-                    String ruta = request.getServletContext().getRealPath("/")+"foto/";
+                if (!item.isFormField()) {
+                    String ruta = request.getServletContext().getRealPath("/") + "foto/";
                     SimpleDateFormat sdf = new SimpleDateFormat("ddMyyyyhhmmss");
                     String fecha = sdf.format(new Date());
-                    nombre = fecha+ new Random().nextLong()+item.getName();
+                    nombre = fecha + new Random().nextLong() + item.getName();
                     //String nuevoNombre = ruta+fecha+ new Random().nextLong()+item.getName();
-                    String nuevoNombre = ruta+nombre;
+                    String nuevoNombre = ruta + nombre;
                     File folder = new File(ruta);
-                    if(!folder.exists()){
+                    if (!folder.exists()) {
                         folder.mkdirs();
                     }
                     File imagen = new File(nuevoNombre);
-                    if(item.getContentType().contains("image")){
+                    if (item.getContentType().contains("image")) {
                         item.write(imagen);
-                        request.setAttribute("subida", true);
+                        request.setAttribute(item.getFieldName(), nombre);
                         //return "foto/"+nuevoNombre;
-                        return nombre;
                     }
+                } else {
+                    request.setAttribute(item.getFieldName(), item.getString());
                 }
             }
-            return null;
         } catch (FileUploadException ex) {
             request.setAttribute("subida", false);
         } catch (Exception ex) {
             request.setAttribute("subida", false);
         }
-        return "";
     }
 
     /**
