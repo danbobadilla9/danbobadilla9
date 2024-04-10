@@ -42,34 +42,62 @@
                     <div class="col-sm-9 padding-right">
                         <div class="features_items"><!--features_items-->
                             <h2 class="title text-center">Productos destacados</h2>
+                            <%! ArrayList<Producto> datos; %>
                             <%
-                                ArrayList<Producto> productos = ProductoModel.listarProductosRecomendados(session.getAttribute("moneda").toString());
-                                pageContext.setAttribute("productos", productos);
+                                
+                                if(Integer.parseInt(session.getAttribute("category").toString()) > 0){
+                                    datos = ProductoModel.listarProductoPorCategoria(session.getAttribute("moneda").toString(),Integer.parseInt(session.getAttribute("category").toString()));
+                                }else if(Integer.parseInt(session.getAttribute("brand").toString()) > 0){
+                                    datos = ProductoModel.listarProductoPorMarca(session.getAttribute("moneda").toString(),Integer.parseInt(session.getAttribute("brand").toString()));
+                                    System.out.println("ENTRO EN BRAND");
+                                    System.out.println(datos.size());
+                                }else{
+                                    datos = ProductoModel.listarProductosRecomendados(session.getAttribute("moneda").toString());
+                                }
+                            
+                            %>
+                            <%
+                                ArrayList<Producto> productos = datos;
+                                pageContext.setAttribute("productos2", productos);
 
                             %>
-
-                            <c:forEach var="p" items="${productos}">
+                            
+                            <c:forEach var="p" items="${productos2}">
                                 <div class="col-sm-4">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
                                                 <img src="foto/${p.img}" alt="" />
-                                                <h2>${sessionScope.moneda}${p.precio}</h2>
+                                                <h2 <c:if test="${p.stock == 0}"> class="gris" </c:if> >   ${sessionScope.moneda}${p.precio}</h2>
                                                 <p>${p.nombre}</p>
-                                                <span class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carrito</span>
-                                            </div>
-                                            <div class="product-overlay">
-                                                <div class="overlay-content">
-                                                    <h2>${sessionScope.moneda}${p.precio}</h2>
-                                                    <p>${p.nombre}</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
+                                                <span class="btn btn-default add-to-cart <c:if test="${p.stock == 0}"> disabled </c:if>"  ><i class="fa fa-shopping-cart"></i>Agregar al carrito</span>
                                                 </div>
-                                            </div>
+                                                <div class="product-overlay  <c:if test="${p.stock == 0}"> grisfondo </c:if>">
+                                                    <div class="overlay-content">
+                                                        <h2>${sessionScope.moneda}${p.precio}</h2>
+                                                    <p>${p.nombre}</p>
+                                                    <a href="#" class="btn btn-default add-to-cart <c:if test="${p.stock == 0}"> disabled </c:if>"><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
+                                                    </div>
+                                                </div>
+                                            <c:if test="${p.nuevo}">
+                                                <img src="images/home/new.png" class="new" alt="producto nuevo"/>
+                                            </c:if>
                                         </div>
                                         <div class="choose">
                                             <ul class="nav nav-pills nav-justified">
                                                 <li><a href=""><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-check-circle"></i>Disponible</a></li>
+                                                <li><a href="#" <c:if test="${p.stock == 0}"> class="gris" </c:if>>
+                                                        <c:choose>
+                                                            <c:when test="${p.stock > 0}">
+                                                                <i class="fa fa-check-circle"></i>(<c:out value="${p.stock}"/>) Disponible
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <i class="fa fa-lock"></i>(<c:out value="${p.stock}"/>) Agotado
+                                                            </c:otherwise>
+                                                        </c:choose>
+
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

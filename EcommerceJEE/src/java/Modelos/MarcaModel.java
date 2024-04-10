@@ -42,4 +42,21 @@ public class MarcaModel {
         }
 
     }
+    public static int contarMarcas(int cod) {
+
+        try {
+            String sql = "{call sp_contarProductosMarca(?)}";
+            Connection c = Conexion.conectar();
+            CallableStatement sentencia;
+            sentencia = c.prepareCall(sql);
+            sentencia.setInt(1, cod);
+            ResultSet resultado = sentencia.executeQuery();
+            resultado.next();
+            return resultado.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(MarcaModel.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+
+    }
 }

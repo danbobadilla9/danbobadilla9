@@ -88,8 +88,71 @@ public class ProductoModel {
     }
     
     
+    public static ArrayList<Producto> listarProductoPorCategoria(String moneda,int cat){
+        try{
+            
+            String sql = "{ CALL sp_listarPorCategoria(?,?) }";
+            Connection c = Conexion.conectar();
+            CallableStatement sentencia = c.prepareCall(sql);
+            sentencia.setString(1, moneda);
+            sentencia.setInt(2, cat);
+            ResultSet resultado = sentencia.executeQuery();
+            ArrayList<Producto> lista = new ArrayList<>();
+            while(resultado.next()){
+                Producto p = new Producto();
+                p.setWebid(resultado.getInt("webid"));
+                p.setNombre(resultado.getString("nombre"));
+                p.setImg(resultado.getString("img"));
+                System.out.println("IMG -> "+p.getImg());
+                p.setStock(resultado.getInt("stock"));
+                p.setNuevo(resultado.getBoolean("nuevo"));
+                if(moneda.equalsIgnoreCase("MXN")){
+                    p.setPrecio(resultado.getFloat("precio"));
+                    p.setPrecionuevo(resultado.getFloat("precionuevo"));
+                }else{
+                    p.setPrecio(resultado.getFloat("precio2"));
+                    p.setPrecionuevo(resultado.getFloat("precion2"));
+                }
+                lista.add(p);
+            }
+            return lista;
+        }catch(SQLException ex){
+            return null;
+        }
+    }
     
-    
+    public static ArrayList<Producto> listarProductoPorMarca(String moneda,int m){
+        try{
+            
+            String sql = "{ CALL sp_listarPorMarca(?,?) }";
+            Connection c = Conexion.conectar();
+            CallableStatement sentencia = c.prepareCall(sql);
+            sentencia.setString(1, moneda);
+            sentencia.setInt(2, m);
+            ResultSet resultado = sentencia.executeQuery();
+            ArrayList<Producto> lista = new ArrayList<>();
+            while(resultado.next()){
+                Producto p = new Producto();
+                p.setWebid(resultado.getInt("webid"));
+                p.setNombre(resultado.getString("nombre"));
+                p.setImg(resultado.getString("img"));
+                System.out.println("IMG -> "+p.getImg());
+                p.setStock(resultado.getInt("stock"));
+                p.setNuevo(resultado.getBoolean("nuevo"));
+                if(moneda.equalsIgnoreCase("MXN")){
+                    p.setPrecio(resultado.getFloat("precio"));
+                    p.setPrecionuevo(resultado.getFloat("precionuevo"));
+                }else{
+                    p.setPrecio(resultado.getFloat("precio2"));
+                    p.setPrecionuevo(resultado.getFloat("precion2"));
+                }
+                lista.add(p);
+            }
+            return lista;
+        }catch(SQLException ex){
+            return null;
+        }
+    }
     
     
     
