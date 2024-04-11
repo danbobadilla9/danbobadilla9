@@ -59,8 +59,8 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-user"></i> Mi cuenta</a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i> Ver carrito</a></li>
-                            <li><a href="#"><i class="fa fa-crosshairs"></i> Finalizar compra</a></li>
+                            <li><a href="Cart"><i class="fa fa-shopping-cart"></i> Ver carrito</a></li>
+                            <li><a href="Checkout"><i class="fa fa-crosshairs"></i> Finalizar compra</a></li>
                             <li><a href="#"><i class="fa fa-lock"></i> Acceder</a></li>
                         </ul>
                     </div>

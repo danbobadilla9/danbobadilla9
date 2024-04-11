@@ -5,12 +5,17 @@
  */
 package View;
 
+import JabaBeans.Item;
+import JabaBeans.Producto;
+import Modelos.ProductoModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,8 +34,50 @@ public class Cart extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        if (request.getParameter("action") != null) {
+            String a = request.getParameter("action");
+            int webid = Integer.parseInt(request.getParameter("id"));
+            Producto p;
+            HttpSession session = request.getSession();
+            if (a.equals("order")) {
+                if (session.getAttribute("cart") == null) {
+                    ArrayList<Item> cart = new ArrayList<>();
+                    p = ProductoModel.consultarProducto(session.getAttribute("moneda").toString(), webid);
+                    cart.add(new Item(p, 1));
+                    session.setAttribute("cart", cart);
+                } else {
+                    ArrayList<Item> cart = (ArrayList<Item>) session.getAttribute("cart");
+                    int indice = yaExisteProducto(webid, cart);
+                    if (indice == -1) {
+                        p = ProductoModel.consultarProducto(session.getAttribute("moneda").toString(), webid);
+                        cart.add(new Item(p, 1));
+                    }else{
+                        int cantidad = cart.get(indice).getCantidad() +1;
+                        cart.get(indice).setCantidad(cantidad);
+                    }
+
+                    session.setAttribute("cart", cart);
+                }
+            } else if(a.equals("delete")){
+                ArrayList<Item> cart = (ArrayList<Item>) session.getAttribute("cart");
+                int indice = yaExisteProducto(webid, cart);
+                cart.remove(indice);
+                session.setAttribute("cart", cart);
+            }
+        }
+
         response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher("WEB-INF/cart.jsp").forward(request, response);
+    }
+
+    private int yaExisteProducto(int webid, ArrayList<Item> cart) {
+        for (int i = 0; i < cart.size(); i++) {
+            if (cart.get(i).getP().getWebid() == webid) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

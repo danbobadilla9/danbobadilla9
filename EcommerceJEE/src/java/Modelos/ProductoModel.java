@@ -154,6 +154,36 @@ public class ProductoModel {
         }
     }
     
-    
+    public static Producto consultarProducto(String moneda,int webid){
+        try{
+            
+            String sql = "{ CALL sp_consultarProducto(?,?) }";
+            Connection c = Conexion.conectar();
+            CallableStatement sentencia = c.prepareCall(sql);
+            sentencia.setString(1, moneda);
+            sentencia.setInt(2, webid);
+            ResultSet resultado = sentencia.executeQuery();
+            Producto p = null;
+            if(resultado.next()){
+                p = new Producto();
+                p.setWebid(resultado.getInt("webid"));
+                p.setNombre(resultado.getString("nombre"));
+                p.setImg(resultado.getString("img"));
+                System.out.println("IMG -> "+p.getImg());
+                p.setStock(resultado.getInt("stock"));
+                p.setNuevo(resultado.getBoolean("nuevo"));
+                if(moneda.equalsIgnoreCase("MXN")){
+                    p.setPrecio(resultado.getFloat("precio"));
+                    p.setPrecionuevo(resultado.getFloat("precionuevo"));
+                }else{
+                    p.setPrecio(resultado.getFloat("precio2"));
+                    p.setPrecionuevo(resultado.getFloat("precion2"));
+                }
+            }
+            return p;
+        }catch(SQLException ex){
+            return null;
+        }
+    }
     
 }

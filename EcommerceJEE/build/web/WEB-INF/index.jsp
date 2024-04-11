@@ -76,7 +76,7 @@
                                                     <div class="overlay-content">
                                                         <h2>${sessionScope.moneda}${p.precio}</h2>
                                                     <p>${p.nombre}</p>
-                                                    <a href="#" class="btn btn-default add-to-cart <c:if test="${p.stock == 0}"> disabled </c:if>"><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
+                                                    <a href="Cart?id=${p.webid}&action=order" class="btn btn-default add-to-cart <c:if test="${p.stock == 0}"> disabled </c:if>"><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
                                                     </div>
                                                 </div>
                                             <c:if test="${p.nuevo}">
